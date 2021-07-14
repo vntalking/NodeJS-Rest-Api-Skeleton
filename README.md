@@ -1,2 +1,2 @@
-# NodeJS-Rest-Api-Skeleton
-Bộ khung cho dự án tạo REST API bằng NodeJS
+# NodeJS Rest Api Skeleton created by VNTALKING
+Rest API Skeleton project NodeJS + ExpressJS + OracleDB
