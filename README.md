@@ -1,3 +1,2 @@
-# NodeJS-Rest-Api-Skeleton
-Rest API Skeleton project by NodeJS
-Main technology: NodeJS + ExpressJS + OracleDB
+# NodeJS Rest Api Skeleton created by VNTALKING
+Rest API Skeleton project NodeJS + ExpressJS + OracleDB
