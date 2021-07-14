@@ -1,3 +1,3 @@
 # NodeJS-Rest-Api-Skeleton
-Bộ khung cho dự án tạo REST API bằng NodeJS
-Công nghệ chính gồm: NodeJS + ExpressJS + OracleDB
+Rest API Skeleton project by NodeJS
+Main technology: NodeJS + ExpressJS + OracleDB
