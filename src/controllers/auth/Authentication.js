@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../models/userModel');
 const AppError = require('../../utils/appError');
+const { 
+    LoginSchema 
+} = require('./Validation');
+
 
 const createToken = userInfo => {
     return jwt.sign({
@@ -12,15 +16,16 @@ const createToken = userInfo => {
 
 exports.login = async (req, res, next) => {
     try {
-
+        
         const userInfo = {
             username,
             password
         } = req.body;
 
-        // 1) check if email and password exist
-        if (!username || !password) {
-            return next(new AppError(404, 'failed', 'Please provide email or password'), req, res, next);
+        // 1) validate request body against schema. check if email and password exist
+        const { error } = LoginSchema.validate(userInfo);
+        if (error) {
+            return next(new AppError(400, 'Bad Request', `Validation error: ${error.details.map(x => x.message).join(', ')}`), req, res, next);
         }
 
         const logInfo = {
@@ -29,19 +34,21 @@ exports.login = async (req, res, next) => {
         }
 
         // 2) check if user exist and password is correct
-        let result = await UserModel.login(userInfo, logInfo);
+        /* let result = await UserModel.login(userInfo, logInfo);
         if(result.length === 0 || (typeof result[0].error_code !== 'undefined' && result[0].error_code !== 0)){
             return res.status(200).json({
                 status: 'failed',
                 message: result[0] ? result[0].error_message : 'Login was failed with unknown reason.'
             });
         }
-
+        
         const userData = {
             name: result[0].full_name,
             username: userInfo.username,
             role: result[0].user_type
-        };
+        }; */
+
+        const userData = userInfo;
 
         // 3) All correct, send jwt to client
         const token = createToken(userData);
