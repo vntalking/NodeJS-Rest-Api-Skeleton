@@ -7,7 +7,7 @@ const hpp = require('hpp');
 const cors = require('cors');
 
 
-const globalErrHandler = require('./controllers/Error');
+const globalErrHandler = require('./controllers/error/Error');
 const AppError = require('./utils/appError');
 const app = express();
 

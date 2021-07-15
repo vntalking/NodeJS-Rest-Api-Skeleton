@@ -3,27 +3,12 @@ const router = express.Router();
 const apicache = require ('apicache');
 const cache = apicache.options({ enabled: process.env.CACHE_ENABLE==='true' }).middleware(process.env.CACHE_EXPIRES_IN);
 
-router.get('/', (req, res, next)=> {
-    res.status(200).json({
-        msg: "get Users"
-    })
-})
+const { authentication, user } = require('../../controllers') ;
 
-// // POST /api/users/login
-// router.post('/login', authController.validate('login'), authController.login);
+// GET /api/private/users
+router.get('/', cache, user.getUser);
 
-// // POST /api/users/signup
-// router.post('/signup', authController.validate('signup'), authController.signup);
-
-// Protect all routes after this middleware
-//router.use(auth.protect);
-// GET /api/users/search
-
-
-//process response format before send to client.
-//router.use(responseMiddleware.processResponse);
-
-// Only admin have permission to access for the below APIs 
-//router.use(authController.restrictTo('admin'));
+// POST /api/private/users/logout
+router.post('/logout', authentication.logout);
 
 module.exports = router;

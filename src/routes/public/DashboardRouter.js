@@ -4,12 +4,10 @@ const router = express.Router();
 const apicache = require ('apicache');
 const cache = apicache.options({ enabled: process.env.CACHE_ENABLE==='true' }).middleware(process.env.CACHE_EXPIRES_IN);
 
+const {dashboard} = require('../../controllers');
+
 // GET /api/dashboard
-router.get('/', cache, (req, res, next)=> {
-    res.status(200).json({
-        msg: "Get dashboard"
-    })
-});
+router.get('/', cache, dashboard.getOne);
 
 
 module.exports = router;

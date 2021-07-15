@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../models/userModel');
-const AppError = require('../utils/appError');
+const UserModel = require('../../models/userModel');
+const AppError = require('../../utils/appError');
 const { body, validationResult } = require('express-validator');
 
 const createToken = userInfo => {
@@ -22,8 +22,7 @@ exports.login = async (req, res, next) => {
 
         const userInfo = {
             username,
-            password,
-            gg_token
+            password
         } = req.body;
 
         // 1) check if email and password exist
@@ -67,6 +66,12 @@ exports.login = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.logout = async (req, res, next) => {
+    res.status(200).json({
+        msg: 'Logout successed!'
+    })
+}
 
 exports.signup = async (req, res, next) => {
     try {
