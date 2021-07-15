@@ -8,7 +8,7 @@ const {restrictTo} = require('./special/Restrict');
 
 const responseMiddleware = require('../middleware/ResponseMiddleware');
 const logInfoMiddleware = require('../middleware/LogInfoMiddleware');
-const auth = require('../middleware/Auth');
+const auth = require('../middleware/TokenMiddleware');
 
 //get request information  to tracking
 app.use(logInfoMiddleware.processLogInfo);
@@ -25,6 +25,5 @@ app.use(restrictTo('admin'));
 app.use('/special', specialApi);
 
 app.use(responseMiddleware.format);
-
 
 module.exports = app;

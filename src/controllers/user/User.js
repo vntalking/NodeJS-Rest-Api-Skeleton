@@ -1,9 +1,9 @@
 // get information of a user
 exports.getUser = async function(req, res, next) {
     let results = {
-        status: 'OK',
+        statusCode: '200',
         msg: "User getOne",
-        data: []
+        data: ["user1", "user2"]
     }
 
     next(results, req, res, next);

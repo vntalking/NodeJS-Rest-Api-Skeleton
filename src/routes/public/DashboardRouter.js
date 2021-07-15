@@ -7,7 +7,6 @@ const cache = apicache.options({ enabled: process.env.CACHE_ENABLE==='true' }).m
 const {dashboard} = require('../../controllers');
 
 // GET /api/dashboard
-router.get('/', cache, dashboard.getOne);
-
+router.get('/', dashboard.getOne);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const cache = apicache.options({ enabled: process.env.CACHE_ENABLE==='true' }).m
 const { authentication, user } = require('../../controllers') ;
 
 // GET /api/private/users
-router.get('/', cache, user.getUser);
+router.get('/', user.getUser);
 
 // POST /api/private/users/logout
 router.post('/logout', authentication.logout);

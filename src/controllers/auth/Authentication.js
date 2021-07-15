@@ -33,22 +33,22 @@ exports.login = async (req, res, next) => {
             client: req.headers["client"] || 'Unknown',
         }
 
-        // 2) check if user exist and password is correct
-        /* let result = await UserModel.login(userInfo, logInfo);
+        // 2) check if user and password in Database
+        let result = await UserModel.login(userInfo, logInfo);
         if(result.length === 0 || (typeof result[0].error_code !== 'undefined' && result[0].error_code !== 0)){
             return res.status(200).json({
                 status: 'failed',
                 message: result[0] ? result[0].error_message : 'Login was failed with unknown reason.'
             });
         }
-        
+
         const userData = {
             name: result[0].full_name,
             username: userInfo.username,
             role: result[0].user_type
-        }; */
+        }; 
 
-        const userData = userInfo;
+        //const userData = userInfo;
 
         // 3) All correct, send jwt to client
         const token = createToken(userData);
@@ -68,6 +68,7 @@ exports.login = async (req, res, next) => {
 };
 
 exports.logout = async (req, res, next) => {
+    // should delete token
     res.status(200).json({
         msg: 'Logout successed!'
     })

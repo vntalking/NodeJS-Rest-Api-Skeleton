@@ -12,7 +12,7 @@ const apicache = require ('apicache');
  * @param {*} next 
  * @returns 
  */
-exports.format = async (results, req, res) => {
+exports.format = (results, req, res, next) => {
 
     if(!Array.isArray(results)) {
         // use this case when middleware return  next(new AppError(...)))

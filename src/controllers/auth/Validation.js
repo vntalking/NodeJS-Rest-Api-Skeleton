@@ -8,7 +8,7 @@ const LoginSchema = Joi.object({
         .required(),
     password: Joi.string()
         .required()
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+        .pattern(new RegExp('^[a-zA-Z0-9]{3,100}$')),
 })
 
 const SignupSchema = Joi.object({

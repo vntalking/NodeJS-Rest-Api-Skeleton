@@ -1,8 +1,8 @@
 const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.fetchAsString = [oracledb.CLOB];
-const dbconfig = require('../config/dbconfig');
-const Utils = require('../utils/commonUtils');
+const dbconfig = require('../../config/dbconfig');
+const Utils = require('../../utils/commonUtils');
 
 async function requestExecute(statement, binds = {}, opts = {}) {
     let connection;

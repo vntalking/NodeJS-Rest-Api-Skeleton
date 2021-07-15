@@ -6,9 +6,10 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
 
-
+const api = require('./routes/api');
 const globalErrHandler = require('./controllers/error/Error');
 const AppError = require('./utils/appError');
+
 const app = express();
 
 // Allow Cross-Origin requests
@@ -54,10 +55,11 @@ app.use(hpp());
 // Declare upload folder
 app.use(express.static('public'));
 
+
+
 /**
  * Routes
  */
-const api = require('./routes/api');
 app.use('/api/', api);
 
 // The API for check server status

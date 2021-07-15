@@ -1,9 +1,9 @@
 
 exports.getOne = async function (req, res, next) {
     let results = {
-        status: 'OK',
+        statusCode: '200',
         msg: "Dashboard getOne",
-        data: []
+        data: [1, 2, 3]
     }
 
     next(results, req, res, next);
