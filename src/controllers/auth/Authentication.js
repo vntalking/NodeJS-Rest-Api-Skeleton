@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../../models/userModel');
+const {UserModel} = require('../../models');
 const AppError = require('../../utils/appError');
 const { 
     LoginSchema 

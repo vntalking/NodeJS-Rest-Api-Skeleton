@@ -1,10 +1,14 @@
 
+const { dashboardModel } = require('../../models');
+
 exports.getOne = async function (req, res, next) {
-    let results = {
-        statusCode: '200',
-        msg: "Dashboard getOne",
-        data: [1, 2, 3]
+
+    const logInfo = {
+        username: "admin",
+        device: "Device",
+        client: "Postman"
     }
+    let results = await dashboardModel.getSumary(logInfo);
 
     next(results, req, res, next);
 }
