@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../models/userModel');
 const AppError = require('../../utils/appError');
-const { body, validationResult } = require('express-validator');
 
 const createToken = userInfo => {
     return jwt.sign({
@@ -13,12 +12,6 @@ const createToken = userInfo => {
 
 exports.login = async (req, res, next) => {
     try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(200).json({ errors: errors.array() });
-            return;
-        }
 
         const userInfo = {
             username,
@@ -75,12 +68,7 @@ exports.logout = async (req, res, next) => {
 
 exports.signup = async (req, res, next) => {
     try {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            res.status(200).json({ errors: errors.array() });
-            return;
-        }
+        
         //1) Validate user information after pre-process in middleware: username, password, email.
         const {
             username,
@@ -116,22 +104,3 @@ exports.signup = async (req, res, next) => {
     }
 
 };
-
-exports.validate = function (method) {
-    switch (method) {
-        case 'login': {
-            return [
-                body('username').exists().withMessage('Please provide userName'),
-                body('password').exists().withMessage('Please provide password')
-                    .isLength({ min: 5 }).withMessage('Password must be at least 5 chars long')
-            ]
-        }
-        case 'signup': {
-            return [
-                body('username').exists().withMessage('Please provide userName'),
-                body('password').exists().withMessage('Please provide password')
-                    .isLength({ min: 5 }).withMessage('Password must be at least 5 chars long')
-            ]
-        }
-    }
-}
