@@ -1,17 +1,25 @@
-const jwt = require('jsonwebtoken');
-const {UserModel} = require('../../models');
+//const jwt = require('jsonwebtoken');
+const { userModel } = require('../../models');
 const AppError = require('../../utils/appError');
+
+const redis = require('redis');
+const JWTR =  require('jwt-redis').default;
+
+const redisClient = redis.createClient();
+const jwtr = new JWTR(redisClient);
+
 const { 
     LoginSchema 
 } = require('./Validation');
 
 
-const createToken = userInfo => {
-    return jwt.sign({
+const createToken =  async userInfo => {
+    return await jwtr.sign({
         userInfo
     }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN
     });
+
 };
 
 exports.login = async (req, res, next) => {
@@ -34,7 +42,7 @@ exports.login = async (req, res, next) => {
         }
 
         // 2) check if user and password in Database
-        let result = await UserModel.login(userInfo, logInfo);
+        let result = await userModel.login(userInfo, logInfo);
         if(result.length === 0 || (typeof result[0].error_code !== 'undefined' && result[0].error_code !== 0)){
             return res.status(200).json({
                 status: 'failed',
@@ -51,7 +59,7 @@ exports.login = async (req, res, next) => {
         //const userData = userInfo;
 
         // 3) All correct, send jwt to client
-        const token = createToken(userData);
+        const token = await createToken(userData);
 
         // Remove the password from the output 
         userInfo.password = undefined;
